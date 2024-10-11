@@ -5,6 +5,7 @@ export const ThemeContext = createContext();
 
 // Colores disponibles
 const colors = {
+    // Se establecen los colores a usar
     primary: '#1194c4',
     secondary: '#211769',
     accent: '#d41c45',

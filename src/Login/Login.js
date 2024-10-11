@@ -2,35 +2,45 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { ThemeContext } from './ThemeContext';
 
-function Login({ h1Text, h1Class, handleSubmit, errorMessage }) {
+function Login({ h1Text, h1Class, handleSubmit, errorMessage, formBackgroundColor }) {
     const { themeColor } = useContext(ThemeContext);
+    const rgbaThemeColor = formBackgroundColor
+        ? formBackgroundColor
+        : themeColor === '#1194c4'
+            ? 'rgba(17, 148, 196, 0.5)'
+            : themeColor === '#211769'
+                ? 'rgba(33, 23, 105, 0.5)'
+                : 'rgba(212, 28, 69, 0.5)'; 
 
     return (
-        <div className="flex justify-center items-center h-full">
+        // Form interior
+        <div className="flex justify-center items-center h-full rounded-md opacity-75">
             <form
-                className="bg-black bg-opacity-50 p-6 rounded shadow-md w-[500px] h-[300px] relative z-10"
-                style={{ borderColor: themeColor }} 
+                style={{ backgroundColor: rgbaThemeColor, borderColor: themeColor }} 
+                className="bg-opacity-45 p-6 rounded w-[600px] h-[500px] relative z-10"
                 onSubmit={handleSubmit}
             >
+                {/* Logo de la empresa */}
+                <div className="flex justify-center mb-4">
+                    <img src="Image/IconCompany.jpg" alt="Logo" className="w-24 h-24" /> {/* Ajusta el tamaño según sea necesario */}
+                </div>
                 <h1 className={h1Class}>{h1Text}</h1>
                 <div className="mb-4">
-                    <label htmlFor="username" className="block text-gray-300">Username:</label>
+                    <label htmlFor="username" className="text-2xl text-center text-white font-bold">Username:</label>
                     <input
                         type="text"
                         id="username"
                         name="username"
-                        className={`bg-transparent mt-1 p-2 border rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-600`}
-                        style={{ borderColor: themeColor }} 
+                        className="bg-transparent mt-1 p-3 border-2 border-white rounded-md w-full focus:outline-none focus:ring-2 focus:ring-white text-white"
                     />
                 </div>
                 <div className="mb-4">
-                    <label htmlFor="password" className="block text-gray-300">Password:</label>
+                    <label htmlFor="password" className="text-2xl text-center text-white font-bold">Password:</label>
                     <input
                         type="password"
                         id="password"
                         name="password"
-                        className={`bg-transparent mt-1 p-2 border rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-600`}
-                        style={{ borderColor: themeColor }} 
+                        className="bg-transparent mt-1 p-3 border-2 border-white rounded-md w-full focus:outline-none focus:ring-2 focus:ring-white text-white"
                     />
                 </div>
                 {errorMessage && (
@@ -62,6 +72,7 @@ Login.propTypes = {
     h1Class: PropTypes.string.isRequired,
     handleSubmit: PropTypes.func.isRequired,
     errorMessage: PropTypes.string,
+    formBackgroundColor: PropTypes.string,
 };
 
 export default Login;
